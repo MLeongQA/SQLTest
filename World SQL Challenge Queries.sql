@@ -128,6 +128,17 @@ WHERE LifeExpectancy != 0 OR LifeExpectancy != Null
 ORDER BY LifeExpectancy ASC;
 
 -- 19.List the top three most common government forms.
+SELECT GovernmentForm, Count(Code)
+FROM country
+GROUP BY GovernmentForm
+ORDER BY COUNT(Code) DESC
+LIMIT 3;
+
+-- 20. How many countries have gained independence since records began?
+SELECT COUNT(Code)
+FROM country
+WHERE IndepYear IS NOT Null;
+
 
 
 
