@@ -103,5 +103,55 @@ SELECT title
 FROM film
 WHERE description LIKE "%robot%";
 
+-- 18. List all movies released in 2010.
+SELECT COUNT(title)
+FROM film
+WHERE release_year = 2010;
 
+-- 19. Find the titles of all the horror movies.
+SELECT title
+FROM film
+INNER JOIN film_category 
+ON film_category.film_id = film.film_id
+INNER JOIN category
+on category.category_id = film_category.category_id
+WHERE category.name = "Horror";
+
+-- 20. List the full name of the staff member with the ID of 2.
+SELECT first_name, last_name
+FROM staff
+WHERE staff_id = 2;
+
+-- 21. List all the movies that Fred Costner has appeared in.
+SELECT title
+FROM film
+INNER JOIN film_actor
+ON film_actor.film_id = film.film_id
+INNER JOIN actor
+ON actor.actor_id = film_actor.actor_id
+WHERE actor.first_name = "Fred" AND actor.last_name = "Costner";
+
+-- 22. How many distinct countries are there?
+SELECT COUNT(DISTINCT country)
+FROM country;
+
+-- 23. List the name of every language in reverse-alphabetical order.
+SELECT name 
+FROM language
+ORDER BY name DESC;
+
+-- 24. List the full names of every actor whose surname ends with '-son' in alphabetical order by their forename.
+SELECT first_name, last_name
+FROM actor
+WHERE last_name LIKE "%son"
+ORDER BY first_name ASC;
+
+-- 25. Which category contains the most films?
+SELECT name, COUNT(film_category.film_id)
+FROM category
+JOIN film_category
+ON film_category.category_id = category.category_id
+GROUP BY name
+ORDER BY COUNT(film_category.film_id) DESC
+LIMIT 1;
 
